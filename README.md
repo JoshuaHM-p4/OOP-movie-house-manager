@@ -16,7 +16,7 @@ This project is a Tkinter-based GUI application that manages room usage for movi
 
 1. **Clone the repository:**
     ```bash
-    git clone https://github.com/your-username/sheet.git
+    git clone https://github.com/JoshuaHM-p4/OOP-movie-house-manager.git
     cd room-usage-log-sheet
     ```
 
