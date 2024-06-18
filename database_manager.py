@@ -34,7 +34,7 @@ class MovieHouseDatabaseManager:
         cursor = conn.cursor()
 
         cursor.execute(
-            '''DELETE FROM movie WHERE id = ?''',
+            '''UPDATE movie SET is_deleted = 1 WHERE id = ?''',
             (id,)
         )
         conn.commit()
@@ -53,18 +53,18 @@ class MovieHouseDatabaseManager:
         if movie_id: # if id is provided, fetch movies by id
             placeholders = ','.join(['?']*len(movie_id))
             cursor.execute(
-                f'''SELECT id, title, genre, cost FROM movie WHERE id IN ({placeholders})''',
+                f'''SELECT id, title, genre, cost FROM movie WHERE id IN ({placeholders}) AND is_deleted = 0''',
                 movie_id
             )
         elif genres: # fetch movies by genre
             placeholders = ','.join(['?']*len(genres)) # returns ?,?,?..n times
             cursor.execute(
-                f'''SELECT id, title, genre, cost FROM movie WHERE genre IN ({placeholders})''',
+                f'''SELECT id, title, genre, cost FROM movie WHERE genre IN ({placeholders}) AND is_deleted = 0''',
                 genres
             )
         else: # if no genres are provided, fetch all movies
             cursor.execute(
-                '''SELECT id, title, genre, cost FROM movie'''
+                '''SELECT id, title, genre, cost FROM movie WHERE is_deleted = 0'''
             )
 
         movies = cursor.fetchall()
@@ -138,7 +138,7 @@ class MovieHouseDatabaseManager:
             # Close the cursor and connection in case of error
             cursor.close()
             conn.close()
-            return None, []
+            return None
 
     def check_in(self, room_id: int, movies: list[Movie]) -> bool:
         try:
@@ -181,8 +181,6 @@ class MovieHouseDatabaseManager:
         finally:
             cursor.close()
             conn.close()
-
-        # this will also create a room_movie_record for each in the movies list
 
     def check_out(self, id: int) -> bool:
         conn = self.get_connection()
