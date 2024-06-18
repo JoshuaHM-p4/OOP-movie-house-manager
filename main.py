@@ -328,8 +328,13 @@ class MovieHouseWindow(tk.Tk):
             return
 
         # Register the movie and update the list
-        self._database_manager.register_movie(title, genre, cost)
-        self.update_list()
+        if self._database_manager.register_movie(title, genre, cost):
+            self.update_list()
+        else:
+            self.movie_title_entry.delete(0, tk.END)
+            self.genre_entry.delete(0, tk.END)
+            self.cost_entry.delete(0, tk.END)
+            messagebox.showerror("Error", "Failed to register movie")
 
         # Revert the labels to normal color
         self.title_label.config(fg="black")

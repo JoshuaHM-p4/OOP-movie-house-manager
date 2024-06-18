@@ -9,17 +9,25 @@ class MovieHouseDatabaseManager:
     def get_connection(self):
         return sqlite3.connect(self.database_file)
 
-    def register_movie(self, title: str, genre: str, cost: float) -> None:
-        conn = self.get_connection()
-        cursor = conn.cursor()
+    def register_movie(self, title: str, genre: str, cost: float) -> bool:
+        try:
+            conn = self.get_connection()
+            cursor = conn.cursor()
 
-        cursor.execute(
+            cursor.execute(
             '''INSERT INTO movie (title, genre, cost) VALUES (?, ?, ?)''',
             (title, genre, cost)
-        )
-        conn.commit()
+            )
+            conn.commit()
 
-        conn.close()
+            return True
+        except Exception as e:
+            print(f"Error registering movie: {e}")
+            conn.rollback()
+            return False
+        finally:
+            cursor.close()
+            conn.close()
 
     def remove_movie(self, id: int) -> None:
         conn = self.get_connection()
@@ -33,14 +41,11 @@ class MovieHouseDatabaseManager:
         conn.close()
 
     def retrieve_movies(self, movie_id: list[int] | None = None, genres: list[str] | None = None) -> list[Movie]:
-        print(genres)
 
         if movie_id is None:
             movie_id = []
         if genres is None:
             genres = []
-
-
 
         conn = self.get_connection()
         cursor = conn.cursor()
