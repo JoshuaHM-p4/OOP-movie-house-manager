@@ -108,6 +108,13 @@ class RecordWindow(tk.Toplevel):
         # Update total cost label
         if self.record.total_cost:
             self.total_cost.set(f"Total Cost: P{self.record.total_cost:,.2f}")
+        elif self.record.total_cost == 0 and self.record.is_finished:
+            selected_movies_id = [movie_id.split("-")[0].strip() for movie_id in self.movies_to_view_list.get(0, tk.END)]
+            movies = self.db_manager.retrieve_movies(movie_id=selected_movies_id)
+            new_total_cost = self.room.cost
+            if selected_movies_id:
+                new_total_cost += sum([movie.cost for movie in movies])
+            self.total_cost.set(f"Total Cost: P{new_total_cost:,.2f}")
         else:
             self.total_cost.set("Total Cost: P0.00")
 
@@ -155,6 +162,7 @@ class RecordWindow(tk.Toplevel):
             self.movies_to_view_list.insert(tk.END, selected_movie)
             self.movies_list.delete(selected_listbox)
             self.check_buttons_state()
+            self.update_total_cost()
         else:
             messagebox.showerror("Error", "No movie selected")
             return
@@ -167,6 +175,7 @@ class RecordWindow(tk.Toplevel):
             self.movies_list.insert(tk.END, selected_movie)
             self.movies_to_view_list.delete(selected_listbox)
             self.check_buttons_state()
+            self.update_total_cost()
         else:
             messagebox.showerror("Error", "No movie selected")
             return
@@ -287,7 +296,7 @@ class MovieHouseWindow(tk.Tk):
             room_button = tk.Button(self.rooms_lf, text=f"Room {i}", command=lambda i=i: self.open_room(i))
             room_button.pack(side="top", fill="both", expand=True, padx=10, pady=10)
 
-        self.update_list()
+        self.update_list() # update the movies list (saka mo na gawin ito)
 
     def update_remove_button_state(self, event):
         selected_movie = self.movies_list.curselection()
