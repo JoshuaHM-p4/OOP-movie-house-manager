@@ -53,18 +53,38 @@ class MovieHouseDatabaseManager:
         if movie_id: # if id is provided, fetch movies by id
             placeholders = ','.join(['?']*len(movie_id))
             cursor.execute(
-                f'''SELECT id, title, genre, cost FROM movie WHERE id IN ({placeholders}) AND is_deleted = 0''',
+                f'''SELECT
+                    id,
+                    title,
+                    genre,
+                    cost
+                FROM movie
+                WHERE id IN ({placeholders})
+                AND is_deleted = 0''',
                 movie_id
             )
         elif genres: # fetch movies by genre
             placeholders = ','.join(['?']*len(genres)) # returns ?,?,?..n times
             cursor.execute(
-                f'''SELECT id, title, genre, cost FROM movie WHERE genre IN ({placeholders}) AND is_deleted = 0''',
+                f'''SELECT
+                    id,
+                    title,
+                    genre,
+                    cost
+                FROM movie
+                WHERE genre IN ({placeholders})
+                AND is_deleted = 0''',
                 genres
             )
         else: # if no genres are provided, fetch all movies
             cursor.execute(
-                '''SELECT id, title, genre, cost FROM movie WHERE is_deleted = 0'''
+                '''SELECT
+                    id,
+                    title,
+                    genre,
+                    cost
+                FROM movie
+                WHERE is_deleted = 0'''
             )
 
         movies = cursor.fetchall()
@@ -125,13 +145,25 @@ class MovieHouseDatabaseManager:
                 cursor.close()
                 conn.close()
 
-                return Record(id=record_id, room_id=room_id, total_cost=total_cost, is_finished=bool(is_finished),  movies=movies)
+                return Record(
+                    id=record_id,
+                    room_id=room_id,
+                    total_cost=total_cost,
+                    is_finished=bool(is_finished),
+                    movies=movies
+                )
             else:
                 # No record found, return new empty Record object and empty list of movies
                 cursor.close()
                 conn.close()
 
-                return Record(id=0, room_id=room_id, total_cost=0.0, is_finished=True, movies=[])
+                return Record(
+                    id=0,
+                    room_id=room_id,
+                    total_cost=0.0,
+                    is_finished=True,
+                    movies=[]
+                )
 
         except Exception as e:
             print(f"Error retrieving record: {e}")

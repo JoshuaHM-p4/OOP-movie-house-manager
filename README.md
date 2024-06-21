@@ -3,6 +3,18 @@
 
 This project is a Tkinter-based GUI application that manages room usage for movie viewing in a movie house. The application allows users to check in and check out movies for different rooms, ensuring that movies are not double-booked across rooms.
 
+### Please Do Not Copy This Code Directly
+This project contains code and logic that is specific to my implementation of the Movie House management application. I strongly advise my classmates to **not** copy this code directly. Instead, please:
+
+1. **Understand the Code**: Take the time to go through the code and understand how it works. This will help you learn and improve your own coding skills.
+2. **Change Variable Names**: Rename variables to something meaningful and unique to your project.
+3. **Modify the Logic**: Adjust the logic to suit your own requirements and to ensure that your work is distinct.
+4. **Write Your Own Comments**: Add comments that explain what your code does in your own words. This is an excellent way to ensure you understand the code.
+
+By following these steps, you will not only adhere to academic integrity policies but also gain a deeper understanding of the code and improve your own programming abilities.
+
+Most importantly, chat us if you want your help. Code with joy! <3
+
 ## Features
 
 - Add movies to a room's viewing list.
@@ -114,3 +126,5 @@ Pwede rin sabihin na maraming room_records ay pwede sa isang room (many-to-one f
 Sa bawat room ay session ay pwede mag include ng iilang movies, let's say sa session sa Room 1 merong Movie A, Movie B and Movie C etc. So one-to-many relationship din tayo for each room_record session to movies .
 
 May table tayo for movies, each movie ay pwede sa isang room_movie_record sa table. Ibigsabihin meron tayong maraming movies na iilan nakatakda sa room_records or marami tayong room_records na pwede sa kahit iilang movies. Movie A ay pwede sa isang Room_record 1, Movie A, B, C, pwede sa Room_Record 2 OR Room_Record 3, etc.
+
+Pa chat nalang pag may error hehe,

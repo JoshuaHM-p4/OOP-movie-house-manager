@@ -28,6 +28,8 @@ class RecordWindow(tk.Toplevel):
             self.rowconfigure(i, weight=1)
             self.columnconfigure(i, weight=1)
 
+        # Note: You don't need to use self in the following widgets since they are not being accessed outside of this class
+
         ################################################ MOVIES SECTION ################################################
         self.movies_frame = tk.Frame(self)
         self.movies_frame.grid(row=0, column=0, sticky='nsew', padx=10, pady=10)  # Add padx and pady for padding
@@ -215,8 +217,6 @@ class MovieHouseWindow(tk.Tk):
         # Entry Frame (holds the entries and add movie button)
         self.register_input_frame = tk.Frame(self.register_lf)
         self.register_input_frame.pack(expand=True)
-        # self.register_input_frame.columnconfigure(0, weight=1)
-        # self.register_input_frame.columnconfigure(1, weight=1)
 
 
         # register entries
