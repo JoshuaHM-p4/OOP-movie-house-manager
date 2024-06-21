@@ -331,7 +331,7 @@ class MovieHouseWindow(tk.Tk):
             return
 
         # Check if the genre is valid
-        valid_genres = ["Action", "Adventure", "Comedy", "Drama", "Fantasy", "Horror", "Romance", "Sci-Fi", "Thriller"]
+        valid_genres = ["Adventure", "Comedy", "Fantasy", "Romance", "Tragedy"]
         if genre not in valid_genres:
             self.genre_label.config(fg="red")
             return

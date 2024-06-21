@@ -21,7 +21,6 @@ Most importantly, chat us if you want your help. Code with joy! <3
 - Remove movies from a room's viewing list.
 - Check-in functionality to record movies scheduled for viewing in a room.
 - Check-out functionality to mark the viewing session as complete and clear the room's viewing list.
-- Prevents assigning the same movie to multiple rooms simultaneously.
 - Displays room usage logs with relevant details.
 
 ## Installation
@@ -29,7 +28,7 @@ Most importantly, chat us if you want your help. Code with joy! <3
 1. **Clone the repository:**
     ```bash
     git clone https://github.com/JoshuaHM-p4/OOP-movie-house-manager.git
-    cd room-usage-log-sheet
+    cd OOP-movie-house-manager
     ```
 
 2. **Install required dependencies:**
